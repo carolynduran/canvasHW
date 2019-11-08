@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Drawing Area</title>
+
+<style>
+	canvas {
+	    border:5px solid #d3d3d3;
+	    background-color: #f1f1f1;
+	    display: block;
+		}
+</style>
+</head>
+<body>
+    <!-- DO NOT MODIFY THIS HTML -->
+    <canvas id = "myCanvas" width = "350" height = "500"  ></canvas>
+    <input type = "color" id = "picker"/>
+
+		<script>
+			var canvas = document.getElementById("myCanvas");
+			var ctx = canvas.getContext("2d");
+			var color = "red";
+			var pendraw = true;
+			ctx.canvas.width  = .8*window.innerWidth;
+			ctx.canvas.height = .8*window.innerHeight;
+
+			function draw(posX, posY) {
+				ctx.beginPath();
+				ctx.arc(posX-10, posY-10, 10, 0, 2 * Math.PI);
+				}
+
+			 myCanvas.addEventListener(
+				"mousemove", function (e) {
+						ctx.fillStyle = color;
+						ctx.fill();
+						console.log(e.x, e.y);
+						let posX = e.x;
+						let posY = e.y;
+					if (pendraw == true){
+						draw(posX, posY);
+				}
+			})
+
+				window.addEventListener(
+					"keydown", function (e) {
+						if (e.code == 'KeyG'){
+							color = "green";
+						}
+						if (e.code == 'KeyB'){
+							color = "blue";
+						}
+						if (e.code == 'KeyR'){
+							color = "red";
+						}
+						if (e.code == 'KeyY'){
+							color = "yellow";
+						}
+						if (e.code == 'Space'){
+							ctx.clearRect(0, 0, canvas.width, canvas.height);
+						}
+						if (e.keyCode == 38){
+							pendraw = false;
+						}
+						if (e.keyCode == 40){
+							pendraw = true;
+						}
+				})
+				picker.addEventListener(
+					"change", function (e) {
+						color = document.getElementById("picker").value;
+				})
+			</script>
+
+</body>
+</html>
